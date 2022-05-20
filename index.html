@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<body onload="addElement(), addElementAustralia()">
+    <script>
+    const africa = ['Zebras', 'Liūtas',  '', 'Raganosis', '','Raganosis', 'Begemotas'];
+    const australia = ['Kengūra', 'Ančiasnapis', 'Dingo', 'Atsirado', 'Strutis'];
+
+    function rand(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+    </script>
+
+<!-- 1. Tiesiogiai HTML faile rankiniu būdu sukurkite du tuščius <h2> tagus ir vieną mygtuką. (2 taškai)
+    a. Paspaudus mygtuką kiekvienam tagui sugeneruotkite rand() atskirą skaičių nuo 1 iki 6 ir jį įrašykite į tago vidų naudojant innerText() metodą. (4 taškai)
+    b. Paspaudus mygtuką skaičiai turi būti pergeneruojami iš naujo. Jeigu sugeneruoti skaičiai yra vienodi, juos nudažyti raudonai. (4 taškai) -->
+
+    <h2 id="innerText1">?</h2>
+    <h2 id="innerText2">?</h2>
+    <button onclick="randNumber_1_6_Generator()">Rand 1-6</button>
+
+    <script>
+    function randNumber_1_6_Generator() {
+        const innerText1 = document.getElementById("innerText1")
+        const innerText2 = document.getElementById("innerText2")
+        let sk1 = rand(1, 6);
+        let sk2 = rand(1, 6);
+
+        if(sk1 === sk2){
+            innerText1.style.color = "red";
+            innerText2.style.color = "red";
+        }
+        else {
+            innerText1.style.color = "black";
+            innerText2.style.color = "black";            
+        }
+        innerText1.innerText = sk1;
+        innerText2.innerText = sk2;
+    }
+    </script>
+
+
+<!-- 2. Tiesiogiai HTML faile rankiniu būdu sukurkite <h3> tagą ir vieną mygtuką. Susikurkite tuščią masyvą, skaičiams saugoti. (2 taškai)
+a. Paspaudus mygtuką, sugeneruokite rand() skaičių nuo 1 iki 10. Sugeneruotą skaičių pridėkite į masyvą, o tą masyvą atspausdinkite konsolėle. (4 taškai)
+b. <h3> tage skaičiuokite ir su innerText() metodu rašykite visų sugeneruotų skaičių sumą. (4 taškai) -->
+    
+    <h3 id="suma">?</h3>
+    <button onclick="randNumber_1_10_Generator()">Rand 1-10</button>
+
+    <script>
+    let randSkArr = [];
+
+    function randNumber_1_10_Generator() {
+        let sk1 = rand(1, 10);
+        randSkArr.push(sk1);
+        let sk2 = rand(1, 10);
+        randSkArr.push(sk2);
+        console.log(randSkArr);
+
+        sum = 0;
+        randSkArr.forEach(element => sum +=element);
+
+        document.getElementById("suma").innerText = sum;
+    }
+    </script>
+
+<!-- 3. Tiesiogiai HTML faile rankiniu būdu sukurkite <ul> tagą. (2 taškai)
+a. JS pagalba perskaitykite masyvą africa. (4 taškai)
+b. Naudodami createElement() ir kitus reikalingus metodus sukurkite kiekvienam masyvo elementui po <li> tagą su elemento stringu viduje ir juos įrašykite į <ul> tago vidų. (5 taškai)
+c. Elementus su tuščiais stringais praleiskite ir jiems <li> elementų nekurkite. (4 taškai) -->
+
+    <ul id="africa"></ul>
+
+    <script>
+    document.getElementById("africa").innerText = africa;
+
+    // document.body.onload = addElement;
+    
+    function addElement() {
+        for (let i = 0; i < africa.length; i++) {
+            if(africa[i] != 0){
+                const newLi = document.createElement("li");
+                const newContent = document.createTextNode(africa[i]);
+                newLi.appendChild(newContent);
+                const currentUl = document.getElementById("africa");
+                document.body.insertBefore(newLi, currentUl);
+            }            
+        }    
+    }
+    </script>
+
+<!-- 4. Tiesiogiai HTML faile rankiniu būdu sukurkite du tuščius input laukelius, vieną <h5> tagą ir du mygtukus: “+” ir “-”. (2 taškai)
+a. Suprogramuokite kalkuliatorių taip, kad įrašius skaičius į abu input laukelius ir paspaudus atitinkamą mygtuką su skaičiais būtų atlikta atitinkama aritmetinė operacija. (10 taškai)
+b. Jos rezultatas būtų atvaizduotas <h5> tage. (3 taškai)
+Pasirinkite patys sau patogiausius metodus tai atlikti. -->
+
+    <input type="text" id="num1">
+    <input type="text" id="num2">
+    <h5 id="result"></h5>
+    <button onclick="calcPlus()">+</button>
+    <button onclick="calcMinus()">-</button>
+
+    <script>
+        function calcPlus()
+        {
+            let c = "";
+            const a = document.getElementById("num1").value;
+            const b = document.getElementById("num2").value;
+                c = parseInt(a)+parseInt(b); 
+            document.getElementById("result").innerHTML = c;
+        }
+
+        function calcMinus()
+        {
+            let c = "";
+            const a = document.getElementById("num1").value;
+            const b = document.getElementById("num2").value;
+                c = parseInt(a)-parseInt(b); 
+            document.getElementById("result").innerHTML = c;
+        }
+    </script>
+
+<!-- 5. Tiesiogiai HTML faile rankiniu būdu sukurkite <ul> tagą. (2 taškai)
+a. JS pagalba perskaitykite masyvą australia ir kiekvieną masyvo elementą įrašykite į strigą su <li> tagais iš abiejų pusių, o visus gautus stringus sudėkite į vieną bendrą stringą. (8 taškai)
+b. Tą stringą naudodami innerHTML() metodą įdėkite į <ul> tago vidų. (5 taškai)
+c. Generavimo metu “Dingo” background’ą nuspalvinkite mėlynai. (5 taškai) -->
+    <ul id="ausralia"></ul>
+
+    <script>
+        // document.body.onload = addElementAustralia;
+        let HTML = '';
+
+        function addElementAustralia() {
+            for (let i = 0; i < australia.length; i++) {
+                if (australia[i] == "Dingo")
+                    HTML += `<li style="background-color: blue"> ${australia[i]} </li>`;
+                else
+                    HTML += `<li> ${australia[i]} </li>`;       
+            }    
+            console.log(HTML);
+            document.getElementById("ausralia").innerHTML = HTML;
+        }
+    </script>
+
+</body>
+
+</html>
